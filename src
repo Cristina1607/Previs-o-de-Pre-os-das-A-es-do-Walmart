@@ -1,0 +1,62 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.seasonal import seasonal_decompose
+from sklearn.metrics import mean_squared_error
+
+# Carregar os dados
+url = "https://drive.google.com/uc?id=13SQ1N3PZtieiaVr37aK5rA8mcuQYMEHA&export=download"
+df = pd.read_csv(url, parse_dates=['Date'], index_col='Date')
+
+# Exibir as primeiras linhas
+print(df.head())
+
+# Selecionar a coluna de preços de fechamento
+df = df[['Close']]
+
+# Plotar a série temporal
+plt.figure(figsize=(12, 6))
+plt.plot(df)
+plt.title('Preço de Fechamento das Ações do Walmart')
+plt.xlabel('Data')
+plt.ylabel('Preço de Fechamento')
+plt.show()
+
+# Decompor a série temporal
+# Ajustar o parâmetro `period` conforme a periodicidade dos dados
+decomposition = seasonal_decompose(df, model='multiplicative', period=365)  # Ajustar o período conforme necessário
+fig = decomposition.plot()
+plt.show()
+
+# Verificar a autocorrelação e autocorrelação parcial
+plot_acf(df)
+plot_pacf(df)
+plt.show()
+
+# Ajustar o modelo ARIMA
+model = ARIMA(df, order=(5, 1, 0))  # Ajuste os parâmetros conforme necessário
+model_fit = model.fit()
+
+# Resumo do modelo
+print(model_fit.summary())
+
+# Fazer previsões
+forecast = model_fit.forecast(steps=10)  # Prever os próximos 10 períodos
+forecast_df = pd.DataFrame(forecast, index=pd.date_range(start=df.index[-1] + pd.DateOffset(days=1), periods=10), columns=['Forecast'])
+
+# Plotar as previsões
+plt.figure(figsize=(12, 6))
+plt.plot(df, label='Dados Históricos')
+plt.plot(forecast_df, label='Previsões', color='red')
+plt.title('Previsão dos Preços das Ações do Walmart')
+plt.xlabel('Data')
+plt.ylabel('Preço de Fechamento')
+plt.legend()
+plt.show()
+
+# Avaliação do Modelo
+# Prever os valores e calcular o erro
+predictions = model_fit.predict(start=df.index[0], end=df.index[-1])
+mse = mean_squared_error(df, predictions)
+print(f'Erro Quadrático Médio (MSE): {mse}')
