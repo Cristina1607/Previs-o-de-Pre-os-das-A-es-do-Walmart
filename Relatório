@@ -1,0 +1,25 @@
+1. Introdução
+Neste projeto, realizamos a análise e previsão dos preços das ações do Walmart utilizando dados históricos. O objetivo é identificar padrões e tendências, e prever preços futuros com técnicas de séries temporais.
+
+2. Dados
+Utilizamos dados históricos dos preços das ações do Walmart, disponíveis em: Walmart Stock Data. Os dados incluem colunas para a data, preço de abertura, preço máximo, preço mínimo, preço de fechamento, preço ajustado e volume de negociações.
+
+3. Análise Exploratória
+Os dados foram carregados e visualizados para entender a série temporal. As principais atividades foram:
+- Visualização da Série Temporal: Plotagem do preço de fechamento das ações ao longo do tempo.
+- Decomposição da Série Temporal: Análise dos componentes sazonais, de tendência e resíduos.
+
+4. Modelagem
+Aplicamos o modelo ARIMA para prever os preços futuros das ações. O modelo ARIMA foi ajustado com base na análise da autocorrelação e autocorrelação parcial. A previsão foi feita para os próximos 10 períodos.
+
+5. Resultados
+- Visualização dos Dados: Os gráficos mostraram os dados históricos e as previsões futuras.
+- Avaliação do Modelo: O Erro Quadrático Médio (MSE) foi calculado para avaliar a precisão do modelo. O MSE fornece uma métrica quantitativa do erro de previsão.
+
+6. Conclusão
+O projeto demonstrou a aplicação de técnicas de séries temporais para a previsão de preços de ações. A análise exploratória, a decomposição da série temporal e a modelagem com ARIMA forneceram insights sobre os padrões históricos e as previsões futuras dos preços das ações do Walmart.
+
+7. Próximos Passos
+- Aprimoramento do Modelo: Testar diferentes configurações do modelo ARIMA e outros modelos de previsão, como LSTM.
+- Análise de Sensibilidade: Avaliar como diferentes parâmetros e condições afetam as previsões.
+- Expansão dos Dados: Incorporar dados adicionais, como indicadores econômicos, para melhorar a previsão.
